@@ -1,673 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bulla Boys Entertainment | Central Florida Event Booking</title>
-  <meta name="description" content="Central Florida's premier event entertainment company. Book recurring monthly events — karaoke, trivia, Magic: The Gathering, live music, DJ nights and more for your bar or venue."/>
+  <meta name="description" content="Central Florida's premier recurring event company for cava bars. Karaoke, trivia, Magic: The Gathering, live music & DJ nights — fully hosted, monthly, and proven to pack the house."/>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --pink:   #FF3E9D;
-      --purple: #7B2FFF;
-      --yellow: #FFD600;
-      --cyan:   #00D4FF;
-      --green:  #00E676;
-      --dark:   #12052A;
-      --dark2:  #1E0D3C;
-      --card:   #260E4A;
-      --text:   #F0E6FF;
-      --muted:  #B09FCC;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --pink:#FF3E9D;--purple:#7B2FFF;--yellow:#FFD600;--cyan:#00D4FF;
+      --green:#00E676;--dark:#12052A;--dark2:#1E0D3C;--card:#260E4A;
+      --text:#F0E6FF;--muted:#B09FCC;
     }
+    html{scroll-behavior:smooth}
+    body{font-family:'Nunito',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
 
-    html { scroll-behavior: smooth; }
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(18,5,42,.93);backdrop-filter:blur(12px);border-bottom:2px solid var(--purple)}
+    .nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+    .nav-logo svg{width:40px;height:40px}
+    .nav-logo-text{font-family:'Pacifico',cursive;font-size:1.25rem;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+    .nav-logo-sub{font-size:.55rem;font-family:'Nunito',sans-serif;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--cyan);-webkit-text-fill-color:var(--cyan);display:block}
+    .nav-links{display:flex;gap:1.6rem;list-style:none}
+    .nav-links a{color:var(--text);text-decoration:none;font-weight:700;font-size:.9rem;transition:color .2s}
+    .nav-links a:hover{color:var(--yellow)}
+    .nav-cta{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff!important;padding:.5rem 1.3rem;border-radius:50px}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .hamburger span{display:block;width:26px;height:3px;background:var(--text);border-radius:3px}
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--dark);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:7rem 2rem 5rem;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 40%,rgba(123,47,255,.4) 0%,transparent 60%),radial-gradient(ellipse at 80% 30%,rgba(255,62,157,.35) 0%,transparent 55%),radial-gradient(ellipse at 50% 90%,rgba(0,212,255,.2) 0%,transparent 50%),var(--dark)}
+    .confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .confetti span{position:absolute;width:10px;height:10px;border-radius:2px;opacity:.7;animation:fall linear infinite}
+    @keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:.8}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+    .hero-content{position:relative;z-index:2;max-width:860px}
+    .hero-badge{display:inline-block;background:rgba(255,214,0,.15);border:1.5px solid var(--yellow);color:var(--yellow);font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:50px;margin-bottom:1.5rem}
+    .hero-logo-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem}
+    .hero-logo-wrap svg{width:90px;height:90px}
+    h1{font-family:'Pacifico',cursive;font-size:clamp(2.8rem,7vw,5.5rem);line-height:1.1;background:linear-gradient(135deg,var(--pink) 0%,var(--yellow) 50%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem}
+    .hero-sub{font-family:'Pacifico',cursive;font-size:clamp(1.1rem,3vw,1.7rem);color:var(--cyan);margin-bottom:1.4rem}
+    .hero-intro{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--muted);max-width:640px;margin:0 auto 2.5rem;line-height:1.8}
+    .hero-intro strong{color:var(--text)}
+    .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+    .btn{display:inline-block;padding:.85rem 2.2rem;border-radius:50px;font-size:1rem;font-weight:800;text-decoration:none;transition:transform .2s,box-shadow .2s;cursor:pointer;border:none}
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 6px 30px rgba(255,62,157,.4)}
+    .btn-primary:hover{box-shadow:0 10px 40px rgba(255,62,157,.6)}
+    .btn-outline{background:transparent;color:var(--cyan);border:2px solid var(--cyan)}
+    .btn-outline:hover{background:rgba(0,212,255,.1)}
+    .hero-scroll{margin-top:3.5rem;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--muted);font-size:.8rem;font-weight:700;letter-spacing:.1em}
+    .hero-scroll svg{animation:bounce 1.5s infinite}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-    /* ─── NAV ─────────────────────────────────────────── */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(18, 5, 42, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--purple);
-    }
+    /* SHARED SECTION */
+    section{padding:5rem 2rem}
+    .section-inner{max-width:1100px;margin:0 auto}
+    .section-tag{display:inline-block;font-size:.75rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:.3rem .9rem;border-radius:50px;margin-bottom:.8rem}
+    .tag-pink{background:rgba(255,62,157,.15);color:var(--pink);border:1px solid rgba(255,62,157,.4)}
+    .tag-cyan{background:rgba(0,212,255,.12);color:var(--cyan);border:1px solid rgba(0,212,255,.35)}
+    .tag-green{background:rgba(0,230,118,.12);color:var(--green);border:1px solid rgba(0,230,118,.35)}
+    .tag-yellow{background:rgba(255,214,0,.12);color:var(--yellow);border:1px solid rgba(255,214,0,.35)}
+    .tag-purple{background:rgba(123,47,255,.15);color:#c084fc;border:1px solid rgba(123,47,255,.4)}
+    .section-title{font-family:'Pacifico',cursive;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--text);margin-bottom:.8rem}
+    .section-desc{color:var(--muted);font-size:1.05rem;line-height:1.8;max-width:640px;margin-bottom:3rem}
 
-    .nav-logo {
-      display: flex; align-items: center; gap: 0.6rem;
-      text-decoration: none;
-    }
-    .nav-logo svg { width: 42px; height: 42px; }
-    .nav-logo-text {
-      font-family: 'Pacifico', cursive;
-      font-size: 1.3rem;
-      background: linear-gradient(90deg, var(--pink), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.1;
-    }
-    .nav-logo-sub {
-      font-size: 0.55rem;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      -webkit-text-fill-color: var(--cyan);
-      display: block;
-    }
+    /* WHY */
+    #why{background:var(--dark2)}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+    .why-text p{color:var(--muted);line-height:1.9;margin-bottom:1.1rem;font-size:1.02rem}
+    .why-text p strong{color:var(--text)}
+    .why-text p em{color:var(--yellow);font-style:normal;font-weight:800}
+    .why-quote{background:var(--card);border-radius:20px;padding:2rem;border-left:4px solid var(--pink);font-size:1.05rem;font-style:italic;color:var(--muted);line-height:1.8;position:relative}
+    .why-quote::before{content:'\201C';font-size:4rem;color:var(--pink);line-height:0;position:absolute;top:2.2rem;left:1.5rem;opacity:.4}
+    .why-quote-author{display:block;margin-top:1rem;font-style:normal;font-weight:900;color:var(--pink);font-size:.9rem}
 
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a {
-      color: var(--text); text-decoration: none;
-      font-weight: 700; font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--yellow); }
+    /* CHARACTERISTICS */
+    #characteristics{background:var(--dark)}
+    .char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .char-card{background:var(--card);border-radius:20px;padding:1.8rem;border:1.5px solid rgba(255,255,255,.07);display:flex;gap:1.2rem;align-items:flex-start;transition:transform .3s}
+    .char-card:hover{transform:translateY(-5px)}
+    .char-icon{font-size:2rem;flex-shrink:0}
+    .char-card h4{font-size:1rem;font-weight:900;margin-bottom:.4rem}
+    .char-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
 
-    .nav-cta {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: #fff !important; padding: 0.5rem 1.3rem;
-      border-radius: 50px; transition: transform 0.2s, box-shadow 0.2s !important;
-    }
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255,62,157,0.5);
-      color: #fff !important;
-    }
+    /* WHAT WE DO */
+    #what{background:var(--dark2)}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.5rem}
+    .step-card{background:var(--card);border-radius:20px;padding:2rem 1.5rem;border:1.5px solid rgba(255,255,255,.07);transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+    .step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .step-card.s1::before{background:linear-gradient(90deg,var(--pink),var(--yellow))}
+    .step-card.s2::before{background:linear-gradient(90deg,var(--purple),var(--cyan))}
+    .step-card.s3::before{background:linear-gradient(90deg,var(--cyan),var(--green))}
+    .step-card.s4::before{background:linear-gradient(90deg,var(--yellow),var(--pink))}
+    .step-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+    .step-num{font-family:'Pacifico',cursive;font-size:2.8rem;opacity:.15;position:absolute;top:1rem;right:1.2rem}
+    .step-icon{font-size:2.8rem;margin-bottom:1rem;display:block}
+    .step-card h3{font-size:1.2rem;font-weight:900;margin-bottom:.6rem}
+    .step-card p{font-size:.93rem;color:var(--muted);line-height:1.7}
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .hamburger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 3px; }
+    /* EVENTS */
+    #events{background:var(--dark)}
+    .events-intro{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:center;margin-bottom:3.5rem}
+    .events-intro-text p{color:var(--muted);line-height:1.9;margin-bottom:1rem}
+    .events-highlight{background:linear-gradient(135deg,rgba(255,62,157,.15),rgba(123,47,255,.15));border-radius:20px;padding:2rem;border:1.5px solid rgba(255,62,157,.3);text-align:center}
+    .events-highlight .big-num{font-family:'Pacifico',cursive;font-size:4rem;background:linear-gradient(135deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .events-highlight p{color:var(--muted);font-size:.95rem;margin-top:.5rem}
+    .events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem}
+    .event-card{background:var(--card);border-radius:20px;padding:2rem 1.5rem;border:1.5px solid rgba(255,255,255,.07);text-align:center;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+    .event-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .event-card.karaoke::before{background:linear-gradient(90deg,var(--pink),var(--yellow))}
+    .event-card.mtg::before{background:linear-gradient(90deg,var(--purple),var(--cyan))}
+    .event-card.trivia::before{background:linear-gradient(90deg,var(--cyan),var(--green))}
+    .event-card.dj::before{background:linear-gradient(90deg,var(--yellow),var(--pink))}
+    .event-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+    .event-icon{font-size:3.2rem;margin-bottom:1rem;display:block}
+    .event-card h3{font-size:1.2rem;font-weight:900;margin-bottom:.6rem}
+    .event-card p{font-size:.93rem;color:var(--muted);line-height:1.6;margin-bottom:1.2rem}
+    .event-tag{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .75rem;border-radius:50px}
+    .event-tag.pink{background:rgba(255,62,157,.2);color:var(--pink)}
+    .event-tag.purple{background:rgba(123,47,255,.2);color:#c084fc}
+    .event-tag.teal{background:rgba(0,212,255,.15);color:var(--cyan)}
+    .event-tag.gold{background:rgba(255,214,0,.15);color:var(--yellow)}
 
-    /* ─── HERO ─────────────────────────────────────────── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 4rem;
-      overflow: hidden;
-    }
+    /* PROCESS */
+    #how{background:var(--dark2)}
+    .process-steps{display:flex;flex-direction:column;gap:2rem}
+    .process-step{display:grid;grid-template-columns:80px 1fr;gap:1.5rem;align-items:start}
+    .process-num{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Pacifico',cursive;font-size:1.5rem;flex-shrink:0}
+    .pn1{background:linear-gradient(135deg,var(--pink),var(--purple))}
+    .pn2{background:linear-gradient(135deg,var(--purple),var(--cyan))}
+    .pn3{background:linear-gradient(135deg,var(--cyan),var(--green))}
+    .pn4{background:linear-gradient(135deg,var(--yellow),var(--pink))}
+    .pn5{background:linear-gradient(135deg,var(--green),var(--cyan))}
+    .pn6{background:linear-gradient(135deg,var(--pink),var(--yellow))}
+    .process-content{background:var(--card);border-radius:16px;padding:1.5rem 2rem;border:1.5px solid rgba(255,255,255,.07)}
+    .process-content h3{font-size:1.15rem;font-weight:900;margin-bottom:.5rem}
+    .process-content p{color:var(--muted);font-size:.95rem;line-height:1.7}
 
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 20% 40%, rgba(123,47,255,0.4) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 30%, rgba(255,62,157,0.35) 0%, transparent 55%),
-                  radial-gradient(ellipse at 50% 90%, rgba(0,212,255,0.2) 0%, transparent 50%),
-                  var(--dark);
-    }
+    /* PACKAGES */
+    #packages{background:var(--dark)}
+    .packages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem}
+    .package-card{background:var(--card);border-radius:24px;padding:2.5rem 2rem;border:1.5px solid rgba(255,255,255,.08);position:relative;transition:transform .3s,box-shadow .3s}
+    .package-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .package-card.featured{border-color:var(--pink);background:linear-gradient(160deg,rgba(255,62,157,.12),rgba(123,47,255,.15))}
+    .package-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-size:.75rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;padding:.35rem 1.2rem;border-radius:50px;white-space:nowrap}
+    .package-icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+    .package-name{font-size:1.4rem;font-weight:900;margin-bottom:.3rem}
+    .package-tagline{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+    .package-features{list-style:none;margin-bottom:2rem}
+    .package-features li{padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.93rem;color:var(--text);display:flex;gap:.6rem;align-items:flex-start}
+    .package-features li:last-child{border-bottom:none}
+    .package-features li::before{content:'✦';font-size:.7rem;margin-top:3px;flex-shrink:0}
+    .pkg-starter .package-features li::before{color:var(--cyan)}
+    .pkg-party .package-features li::before{color:var(--pink)}
+    .pkg-ultimate .package-features li::before{color:var(--yellow)}
+    .btn-pkg{width:100%;text-align:center;padding:.9rem 1.5rem;border-radius:50px;font-weight:800;font-size:1rem;text-decoration:none;display:block;transition:transform .2s,box-shadow .2s}
+    .btn-pkg:hover{transform:translateY(-3px)}
+    .btn-pkg-cyan{background:linear-gradient(135deg,#00b8d9,#00D4FF);color:#000}
+    .btn-pkg-pink{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;box-shadow:0 6px 25px rgba(255,62,157,.4)}
+    .btn-pkg-yellow{background:linear-gradient(135deg,var(--yellow),#ff9800);color:#000}
 
-    .confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-    .confetti span {
-      position: absolute;
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      opacity: 0.7;
-      animation: fall linear infinite;
-    }
-    @keyframes fall {
-      0%   { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
-      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-    }
+    /* WHY PROFESSIONAL */
+    #whypro{background:var(--dark2)}
+    .whypro-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .whypro-col h3{font-size:1.2rem;font-weight:900;margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+    .whypro-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+    .whypro-list li{background:var(--card);border-radius:12px;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.06);font-size:.93rem;color:var(--muted);line-height:1.6;display:flex;gap:.7rem}
+    .whypro-list li::before{content:'✦';color:var(--pink);flex-shrink:0;margin-top:2px;font-size:.7rem}
+    .whypro-list.b li::before{color:var(--cyan)}
 
-    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+    /* BEST PRACTICES */
+    #bestpractices{background:var(--dark)}
+    .bp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
+    .bp-card{background:var(--card);border-radius:16px;padding:1.6rem;border:1.5px solid rgba(255,255,255,.07)}
+    .bp-num{font-family:'Pacifico',cursive;font-size:1.6rem;margin-bottom:.5rem}
+    .bp-card h4{font-size:.98rem;font-weight:900;margin-bottom:.4rem}
+    .bp-card p{font-size:.88rem;color:var(--muted);line-height:1.6}
+    .bp-num.c1{color:var(--pink)} .bp-num.c2{color:var(--purple)} .bp-num.c3{color:var(--cyan)}
+    .bp-num.c4{color:var(--yellow)} .bp-num.c5{color:var(--green)} .bp-num.c6{color:var(--pink)}
 
-    .hero-badge {
-      display: inline-block;
-      background: rgba(255,214,0,0.15);
-      border: 1.5px solid var(--yellow);
-      color: var(--yellow);
-      font-size: 0.8rem; font-weight: 800;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      padding: 0.35rem 1rem; border-radius: 50px;
-      margin-bottom: 1.5rem;
-    }
+    /* BACKUP */
+    #backup{background:var(--dark2)}
+    .backup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+    .backup-card{background:var(--card);border-radius:16px;padding:1.8rem;border:1.5px solid rgba(255,255,255,.07);display:flex;gap:1.2rem;align-items:flex-start}
+    .backup-icon{font-size:2rem;flex-shrink:0}
+    .backup-card h4{font-size:1rem;font-weight:900;margin-bottom:.4rem}
+    .backup-card p{font-size:.9rem;color:var(--muted);line-height:1.6}
 
-    .hero-logo-large {
-      display: flex; align-items: center; justify-content: center; gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-    .hero-logo-large svg { width: 90px; height: 90px; }
+    /* INQUIRY */
+    #inquiry{background:var(--dark)}
+    .inquiry-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:3rem;align-items:start}
+    .inquiry-info p{color:var(--muted);line-height:1.8;margin-bottom:2rem}
+    .contact-items{display:flex;flex-direction:column;gap:1rem}
+    .contact-item{display:flex;gap:.8rem;align-items:flex-start;background:var(--card);border-radius:14px;padding:1rem 1.2rem;border:1px solid rgba(255,255,255,.06)}
+    .contact-item-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+    .contact-item-text strong{display:block;font-size:.85rem;font-weight:900;margin-bottom:.2rem}
+    .contact-item-text span{color:var(--muted);font-size:.9rem}
+    .inquiry-form{background:var(--card);border-radius:24px;padding:2.5rem;border:1.5px solid rgba(255,255,255,.08)}
+    .inquiry-form h3{font-size:1.4rem;font-weight:900;margin-bottom:1.5rem;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    .form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+    .form-group label{font-size:.85rem;font-weight:700;color:var(--muted)}
+    .form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:.8rem 1rem;color:var(--text);font-family:'Nunito',sans-serif;font-size:.95rem;transition:border-color .2s,box-shadow .2s;outline:none}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,62,157,.15)}
+    .form-group select option{background:var(--dark2);color:var(--text)}
+    .form-group textarea{resize:vertical;min-height:110px}
+    .btn-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;font-weight:900;font-size:1.05rem;border:none;border-radius:50px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 6px 25px rgba(255,62,157,.35)}
+    .btn-submit:hover{transform:translateY(-3px);box-shadow:0 12px 35px rgba(255,62,157,.5)}
+    .form-success{display:none;text-align:center;padding:2rem}
+    .form-success .check{font-size:3rem;margin-bottom:.8rem}
+    .form-success h4{font-size:1.3rem;margin-bottom:.5rem;color:var(--green)}
+    .form-success p{color:var(--muted)}
 
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      line-height: 1.1;
-      background: linear-gradient(135deg, var(--pink) 0%, var(--yellow) 50%, var(--cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.3rem;
-    }
-    .hero-sub-name {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(1.1rem, 3vw, 1.8rem);
-      color: var(--cyan);
-      margin-bottom: 1.2rem;
-    }
-    .hero-desc {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--muted);
-      max-width: 620px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
+    /* FOOTER */
+    footer{background:var(--dark2);border-top:2px solid rgba(255,255,255,.06);padding:3rem 2rem 2rem;text-align:center}
+    .footer-logo{font-family:'Pacifico',cursive;font-size:2rem;background:linear-gradient(90deg,var(--pink),var(--yellow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+    .footer-tagline{color:var(--muted);font-size:.9rem;margin-bottom:1.5rem}
+    .footer-links{display:flex;gap:2rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:700;transition:color .2s}
+    .footer-links a:hover{color:var(--yellow)}
+    .footer-copy{color:rgba(176,159,204,.5);font-size:.8rem}
 
-    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    .btn {
-      display: inline-block;
-      padding: 0.85rem 2.2rem;
-      border-radius: 50px;
-      font-size: 1rem; font-weight: 800;
-      text-decoration: none;
-      transition: transform 0.2s, box-shadow 0.2s;
-      cursor: pointer; border: none;
-    }
-    .btn:hover { transform: translateY(-3px); }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: #fff;
-      box-shadow: 0 6px 30px rgba(255,62,157,0.4);
-    }
-    .btn-primary:hover { box-shadow: 0 10px 40px rgba(255,62,157,0.6); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--cyan);
-      border: 2px solid var(--cyan);
-    }
-    .btn-outline:hover { background: rgba(0,212,255,0.1); box-shadow: 0 6px 20px rgba(0,212,255,0.3); }
-
-    .hero-scroll {
-      margin-top: 3.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      color: var(--muted); font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.1em;
-    }
-    .hero-scroll svg { animation: bounce 1.5s infinite; }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-
-    /* ─── SECTION SHARED ──────────────────────────────── */
-    section { padding: 5rem 2rem; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-tag {
-      display: inline-block;
-      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 0.3rem 0.9rem; border-radius: 50px;
-      margin-bottom: 0.8rem;
-    }
-    .tag-pink  { background: rgba(255,62,157,0.15); color: var(--pink); border: 1px solid rgba(255,62,157,0.4); }
-    .tag-cyan  { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.35); }
-    .tag-green { background: rgba(0,230,118,0.12); color: var(--green); border: 1px solid rgba(0,230,118,0.35); }
-    .tag-yellow{ background: rgba(255,214,0,0.12); color: var(--yellow); border: 1px solid rgba(255,214,0,0.35); }
-
-    .section-title {
-      font-family: 'Pacifico', cursive;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      margin-bottom: 0.6rem;
-    }
-    .section-desc {
-      color: var(--muted); font-size: 1.05rem; line-height: 1.7;
-      max-width: 620px; margin-bottom: 3rem;
-    }
-
-    /* ─── EVENTS ─────────────────────────────────────── */
-    #events { background: var(--dark2); }
-
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .event-card {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      border: 1.5px solid rgba(255,255,255,0.07);
-      transition: transform 0.3s, box-shadow 0.3s;
-      position: relative; overflow: hidden;
-    }
-    .event-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 4px;
-    }
-    .event-card:hover { transform: translateY(-8px); }
-
-    .event-card.karaoke::before  { background: linear-gradient(90deg, var(--pink), var(--yellow)); }
-    .event-card.mtg::before      { background: linear-gradient(90deg, var(--purple), var(--cyan)); }
-    .event-card.trivia::before   { background: linear-gradient(90deg, var(--cyan), var(--green)); }
-    .event-card.djnight::before  { background: linear-gradient(90deg, var(--yellow), var(--pink)); }
-
-    .event-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.4); }
-
-    .event-icon {
-      font-size: 3.2rem; margin-bottom: 1rem;
-      display: block;
-      filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-    }
-    .event-card h3 { font-size: 1.25rem; font-weight: 900; margin-bottom: 0.6rem; }
-    .event-card p  { font-size: 0.93rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
-
-    .event-tag {
-      display: inline-block;
-      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.25rem 0.75rem; border-radius: 50px;
-    }
-    .event-tag.pink   { background: rgba(255,62,157,0.2); color: var(--pink); }
-    .event-tag.purple { background: rgba(123,47,255,0.2); color: #c084fc; }
-    .event-tag.teal   { background: rgba(0,212,255,0.15); color: var(--cyan); }
-    .event-tag.gold   { background: rgba(255,214,0,0.15); color: var(--yellow); }
-
-    /* ─── PACKAGES ───────────────────────────────────── */
-    #packages { background: var(--dark); }
-
-    .packages-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.8rem;
-    }
-
-    .package-card {
-      background: var(--card);
-      border-radius: 24px;
-      padding: 2.5rem 2rem;
-      border: 1.5px solid rgba(255,255,255,0.08);
-      position: relative;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .package-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
-
-    .package-card.featured {
-      border-color: var(--pink);
-      background: linear-gradient(160deg, rgba(255,62,157,0.12), rgba(123,47,255,0.15));
-    }
-
-    .package-badge {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: #fff; font-size: 0.75rem; font-weight: 900;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.35rem 1.2rem; border-radius: 50px;
-      white-space: nowrap;
-    }
-
-    .package-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-    .package-name { font-size: 1.4rem; font-weight: 900; margin-bottom: 0.3rem; }
-    .package-price {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.5rem;
-      margin-bottom: 0.2rem;
-    }
-    .package-price span { font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700; color: var(--muted); }
-    .package-tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-
-    .package-features { list-style: none; margin-bottom: 2rem; }
-    .package-features li {
-      padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      font-size: 0.93rem; color: var(--text);
-      display: flex; gap: 0.6rem; align-items: flex-start;
-    }
-    .package-features li:last-child { border-bottom: none; }
-    .package-features li::before { content: '✦'; font-size: 0.7rem; margin-top: 3px; flex-shrink: 0; }
-
-    .pkg-starter  .package-price, .pkg-starter  .package-features li::before { color: var(--cyan); }
-    .pkg-party    .package-price, .pkg-party    .package-features li::before { color: var(--pink); }
-    .pkg-ultimate .package-price, .pkg-ultimate .package-features li::before { color: var(--yellow); }
-
-    .btn-pkg {
-      width: 100%;
-      text-align: center;
-      padding: 0.9rem 1.5rem;
-      border-radius: 50px;
-      font-weight: 800; font-size: 1rem;
-      text-decoration: none;
-      display: block;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-pkg:hover { transform: translateY(-3px); }
-
-    .btn-pkg-cyan   { background: linear-gradient(135deg, #00b8d9, #00D4FF); color: #000; }
-    .btn-pkg-pink   { background: linear-gradient(135deg, var(--pink), var(--purple)); color: #fff; box-shadow: 0 6px 25px rgba(255,62,157,0.4); }
-    .btn-pkg-yellow { background: linear-gradient(135deg, var(--yellow), #ff9800); color: #000; }
-
-    /* ─── ABOUT ─────────────────────────────────────── */
-    #about { background: var(--dark2); }
-
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 3rem; align-items: center;
-    }
-    .about-text h2 { margin-bottom: 1rem; }
-    .about-text p  { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-
-    .about-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1.2rem;
-    }
-    .stat-card {
-      background: var(--card);
-      border-radius: 16px; padding: 1.5rem;
-      border: 1.5px solid rgba(255,255,255,0.07);
-      text-align: center;
-    }
-    .stat-number {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.2rem;
-      background: linear-gradient(135deg, var(--pink), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .stat-label { font-size: 0.85rem; color: var(--muted); font-weight: 700; margin-top: 0.3rem; }
-
-    /* ─── INQUIRY ────────────────────────────────────── */
-    #inquiry { background: var(--dark); }
-
-    .inquiry-wrap {
-      display: grid; grid-template-columns: 1fr 1.3fr;
-      gap: 3rem; align-items: start;
-    }
-
-    .inquiry-info h2 { margin-bottom: 1rem; }
-    .inquiry-info p  { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
-
-    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-item  {
-      display: flex; gap: 0.8rem; align-items: flex-start;
-      background: var(--card); border-radius: 14px;
-      padding: 1rem 1.2rem;
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .contact-item-icon {
-      font-size: 1.4rem; flex-shrink: 0; margin-top: 2px;
-    }
-    .contact-item-text strong { display: block; font-size: 0.85rem; font-weight: 900; margin-bottom: 0.2rem; }
-    .contact-item-text span   { color: var(--muted); font-size: 0.9rem; }
-
-    .inquiry-form {
-      background: var(--card);
-      border-radius: 24px; padding: 2.5rem;
-      border: 1.5px solid rgba(255,255,255,0.08);
-    }
-    .inquiry-form h3 {
-      font-size: 1.4rem; font-weight: 900; margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, var(--pink), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
-    .form-group label { font-size: 0.85rem; font-weight: 700; color: var(--muted); }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      background: rgba(255,255,255,0.05);
-      border: 1.5px solid rgba(255,255,255,0.1);
-      border-radius: 12px; padding: 0.8rem 1rem;
-      color: var(--text); font-family: 'Nunito', sans-serif;
-      font-size: 0.95rem;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--pink);
-      box-shadow: 0 0 0 3px rgba(255,62,157,0.15);
-    }
-    .form-group select option { background: var(--dark2); color: var(--text); }
-    .form-group textarea { resize: vertical; min-height: 110px; }
-
-    .btn-submit {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: #fff; font-weight: 900; font-size: 1.05rem;
-      border: none; border-radius: 50px; cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 6px 25px rgba(255,62,157,0.35);
-    }
-    .btn-submit:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 35px rgba(255,62,157,0.5);
-    }
-
-    .form-success {
-      display: none; text-align: center; padding: 2rem;
-    }
-    .form-success .check { font-size: 3rem; margin-bottom: 0.8rem; }
-    .form-success h4 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--green); }
-    .form-success p  { color: var(--muted); }
-
-    /* ─── FOOTER ─────────────────────────────────────── */
-    footer {
-      background: var(--dark2);
-      border-top: 2px solid rgba(255,255,255,0.06);
-      padding: 3rem 2rem 2rem;
-      text-align: center;
-    }
-    .footer-logo {
-      font-family: 'Pacifico', cursive;
-      font-size: 2rem;
-      background: linear-gradient(90deg, var(--pink), var(--yellow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    .footer-tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-    .footer-links   { display: flex; gap: 2rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
-    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 700; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--yellow); }
-    .footer-copy  { color: rgba(176,159,204,0.5); font-size: 0.8rem; }
-
-    /* ─── RESPONSIVE ─────────────────────────────────── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark2); padding: 1.5rem 2rem; gap: 1rem; border-bottom: 2px solid var(--purple); }
-      .nav-links.open { display: flex; }
-      .hamburger { display: flex; }
-      .about-grid, .inquiry-wrap { grid-template-columns: 1fr; }
-      .form-row { grid-template-columns: 1fr; }
+    @media(max-width:768px){
+      .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--dark2);padding:1.5rem 2rem;gap:1rem;border-bottom:2px solid var(--purple)}
+      .nav-links.open{display:flex}
+      .hamburger{display:flex}
+      .why-grid,.events-intro,.inquiry-wrap,.whypro-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .process-step{grid-template-columns:60px 1fr}
     }
   </style>
 </head>
 <body>
 
-<!-- ─── NAV ─────────────────────────────────────────── -->
+<!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <!-- Logo SVG -->
     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FF3E9D"/>
-          <stop offset="50%" stop-color="#7B2FFF"/>
-          <stop offset="100%" stop-color="#00D4FF"/>
-        </linearGradient>
-        <linearGradient id="lg2" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#FFD600"/>
-          <stop offset="100%" stop-color="#FF3E9D"/>
-        </linearGradient>
-      </defs>
-      <!-- Shield / stage shape -->
-      <path d="M50 8 L90 26 L90 58 Q90 80 50 95 Q10 80 10 58 L10 26 Z" fill="url(#lg1)" opacity="0.9"/>
-      <!-- BB letters -->
-      <text x="50" y="62" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="30" font-weight="900" fill="#fff" letter-spacing="-2">BB</text>
-      <!-- Star accents -->
+      <defs><linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FF3E9D"/><stop offset="50%" stop-color="#7B2FFF"/><stop offset="100%" stop-color="#00D4FF"/></linearGradient></defs>
+      <path d="M50 8 L90 26 L90 58 Q90 80 50 95 Q10 80 10 58 L10 26 Z" fill="url(#lg1)" opacity=".9"/>
+      <text x="50" y="62" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="30" font-weight="900" fill="#fff" letter-spacing="-2">BB</text>
       <circle cx="50" cy="18" r="3" fill="#FFD600"/>
-      <circle cx="20" cy="35" r="2" fill="#00D4FF" opacity="0.8"/>
-      <circle cx="80" cy="35" r="2" fill="#FF3E9D" opacity="0.8"/>
+      <circle cx="20" cy="35" r="2" fill="#00D4FF" opacity=".8"/>
+      <circle cx="80" cy="35" r="2" fill="#FF3E9D" opacity=".8"/>
     </svg>
-    <div>
-      <span class="nav-logo-text">Bulla Boys</span>
-      <span class="nav-logo-sub">Entertainment</span>
-    </div>
+    <div><span class="nav-logo-text">Bulla Boys</span><span class="nav-logo-sub">Entertainment</span></div>
   </a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="#why">Our Story</a></li>
     <li><a href="#events">Events</a></li>
     <li><a href="#packages">Packages</a></li>
-    <li><a href="#about">About</a></li>
+    <li><a href="#how">How It Works</a></li>
     <li><a href="#inquiry" class="nav-cta">Book Now</a></li>
   </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ─── HERO ─────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="confetti" id="confetti"></div>
   <div class="hero-content">
     <div class="hero-badge">🌴 Central Florida's Premier Event Company</div>
-    <div class="hero-logo-large">
+    <div class="hero-logo-wrap">
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="hlg1" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF3E9D"/>
-            <stop offset="50%" stop-color="#7B2FFF"/>
-            <stop offset="100%" stop-color="#00D4FF"/>
-          </linearGradient>
-        </defs>
-        <path d="M50 8 L90 26 L90 58 Q90 80 50 95 Q10 80 10 58 L10 26 Z" fill="url(#hlg1)" opacity="0.95"/>
-        <text x="50" y="62" text-anchor="middle" font-family="Arial Black, sans-serif" font-size="30" font-weight="900" fill="#fff" letter-spacing="-2">BB</text>
+        <defs><linearGradient id="hlg" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FF3E9D"/><stop offset="50%" stop-color="#7B2FFF"/><stop offset="100%" stop-color="#00D4FF"/></linearGradient></defs>
+        <path d="M50 8 L90 26 L90 58 Q90 80 50 95 Q10 80 10 58 L10 26 Z" fill="url(#hlg)" opacity=".95"/>
+        <text x="50" y="62" text-anchor="middle" font-family="Arial Black,sans-serif" font-size="30" font-weight="900" fill="#fff" letter-spacing="-2">BB</text>
         <circle cx="50" cy="18" r="3" fill="#FFD600"/>
-        <circle cx="20" cy="35" r="2" fill="#00D4FF" opacity="0.8"/>
-        <circle cx="80" cy="35" r="2" fill="#FF3E9D" opacity="0.8"/>
+        <circle cx="20" cy="35" r="2" fill="#00D4FF" opacity=".8"/>
+        <circle cx="80" cy="35" r="2" fill="#FF3E9D" opacity=".8"/>
       </svg>
     </div>
     <h1>Bulla Boys</h1>
-    <div class="hero-sub-name">Entertainment</div>
-    <p class="hero-desc">
-      Bringing the party to cava bars across Central Florida. We plan, host, and execute recurring monthly events your guests will talk about all year — from karaoke showdowns to epic trivia nights.
+    <div class="hero-sub">Entertainment</div>
+    <p class="hero-intro">
+      It's party time — and your bar is invited. <strong>There's a lot that separates an unforgettable night from one you wish you could forget.</strong> We bring the creativity, the connections, and the execution that keeps guests coming back every single month.
     </p>
-    <div class="hero-buttons">
+    <div class="hero-btns">
       <a href="#inquiry" class="btn btn-primary">🎉 Book an Event</a>
-      <a href="#packages" class="btn btn-outline">View Packages</a>
+      <a href="#events" class="btn btn-outline">See What We Do</a>
     </div>
     <div class="hero-scroll">
       <span>Scroll to explore</span>
-      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" color="#B09FCC">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-      </svg>
+      <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="#B09FCC" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
     </div>
   </div>
 </section>
 
-<!-- ─── EVENTS ─────────────────────────────────────── -->
+<!-- OUR STORY -->
+<section id="why">
+  <div class="section-inner">
+    <div class="why-grid">
+      <div class="why-text">
+        <span class="section-tag tag-pink">Our Story</span>
+        <h2 class="section-title">We Noticed a Problem. So We Fixed It.</h2>
+        <p>We've been in venues across Central Florida and kept seeing the same thing — <strong>great bars with empty nights.</strong> No programming. No reason to come back next week. Just barstools and hope.</p>
+        <p>That's exactly where Bulla Boys was born. We're not just event planners — <em>we're your hype crew.</em> We partner with cava bars and local venues to design, promote, host, and grow <strong>recurring monthly events</strong> that give guests a reason to show up again and again.</p>
+        <p>Our job is to organize, communicate, create, and execute. Your job is to run a great bar. <strong>Together, we pack the house.</strong></p>
+        <a href="#inquiry" class="btn btn-primary" style="margin-top:1.2rem;display:inline-block">Let's Work Together</a>
+      </div>
+      <div>
+        <div class="why-quote">
+          There's a lot that separates an unforgettable event from one you wish you could forget. As your event partner, our job is to organize, communicate, create, and execute — so every night at your venue becomes a story your guests tell their friends.
+          <span class="why-quote-author">— Bulla Boys Entertainment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTERISTICS / WHAT MAKES US DIFFERENT -->
+<section id="characteristics">
+  <div class="section-inner">
+    <span class="section-tag tag-cyan">What Sets Us Apart</span>
+    <h2 class="section-title">Built Different. Built for Bars.</h2>
+    <p class="section-desc">Here's what makes a Bulla Boys partnership different from hiring a freelancer or doing it yourself.</p>
+    <div class="char-grid">
+      <div class="char-card">
+        <span class="char-icon">🤝</span>
+        <div><h4>Relationship-Driven</h4><p>Success in events is built on trust — with your venue, your vendors, and your crowd. Every partnership we build is long-term, not a one-and-done gig.</p></div>
+      </div>
+      <div class="char-card">
+        <span class="char-icon">🎯</span>
+        <div><h4>Niche Expertise</h4><p>We specialize in bar and venue entertainment — not corporate gigs or weddings. That focus means deeper knowledge, better results, and a team that truly gets your world.</p></div>
+      </div>
+      <div class="char-card">
+        <span class="char-icon">📣</span>
+        <div><h4>Built-In Marketing</h4><p>Every package includes promotion. Custom flyers, social posts, and community outreach — we don't just show up on the night, we build buzz well before it.</p></div>
+      </div>
+      <div class="char-card">
+        <span class="char-icon">🔁</span>
+        <div><h4>Recurring, Not Random</h4><p>We build monthly event calendars, not one-off nights. Repeat attendance is the goal — a crowd that shows up because they know something good is always happening.</p></div>
+      </div>
+      <div class="char-card">
+        <span class="char-icon">📋</span>
+        <div><h4>Systems &amp; Documentation</h4><p>Every event has a runsheet, a vendor list, a backup plan, and a debrief. We treat every night like a production — because your reputation depends on it.</p></div>
+      </div>
+      <div class="char-card">
+        <span class="char-icon">📈</span>
+        <div><h4>Performance Reviews</h4><p>After every event we analyze what worked, gather feedback, and bring a better plan for next month. Every event night gets stronger over time.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="what">
+  <div class="section-inner">
+    <span class="section-tag tag-yellow">What We Do</span>
+    <h2 class="section-title">We Handle Everything</h2>
+    <p class="section-desc">From planning to post-event wrap-up — here's what Bulla Boys brings to every partnership.</p>
+    <div class="steps-grid">
+      <div class="step-card s1">
+        <span class="step-num">01</span>
+        <span class="step-icon">🎯</span>
+        <h3>Plan &amp; Organize</h3>
+        <p>We define the event, the theme, the timeline, and every detail — so nothing slips through the cracks. No surprises, no scrambling.</p>
+      </div>
+      <div class="step-card s2">
+        <span class="step-num">02</span>
+        <span class="step-icon">📣</span>
+        <h3>Promote &amp; Market</h3>
+        <p>Custom flyers, social media content, and local outreach built around your venue. We get people talking before the event even starts.</p>
+      </div>
+      <div class="step-card s3">
+        <span class="step-num">03</span>
+        <span class="step-icon">🎤</span>
+        <h3>Host &amp; Execute</h3>
+        <p>Professional emcees, equipment, and energy on the night. We run the show with calm precision — you focus on the bar.</p>
+      </div>
+      <div class="step-card s4">
+        <span class="step-num">04</span>
+        <span class="step-icon">📊</span>
+        <h3>Review &amp; Improve</h3>
+        <p>Post-event debrief, feedback review, and a better plan for next month. We track performance so every event beats the last.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
 <section id="events">
   <div class="section-inner">
-    <span class="section-tag tag-pink">Monthly Events</span>
-    <h2 class="section-title" style="color: var(--text);">What We Bring to Your Bar</h2>
-    <p class="section-desc">Recurring monthly events designed to build a loyal crowd, boost bar revenue, and create unforgettable nights for your guests.</p>
+    <div class="events-intro">
+      <div class="events-intro-text">
+        <span class="section-tag tag-pink">Monthly Events</span>
+        <h2 class="section-title">A Million Ways to Party. We Know All of Them.</h2>
+        <p>We specialize in four recurring event formats proven to build loyal crowds, boost bar revenue, and create nights your guests look forward to every month.</p>
+        <p>Mix and match or run them all — we design a monthly calendar that fits your venue's crowd and vibe.</p>
+      </div>
+      <div class="events-highlight">
+        <div class="big-num">4</div>
+        <p>Event formats — bookable monthly, fully hosted, and designed to pack your bar every single time.</p>
+      </div>
+    </div>
     <div class="events-grid">
-
       <div class="event-card karaoke">
         <span class="event-icon">🎤</span>
         <h3>Karaoke Nights</h3>
-        <p>From pop anthems to throwbacks — our hosted karaoke nights keep the crowd singing, laughing, and ordering all night long.</p>
+        <p>Pop anthems, throwbacks, and crowd sing-alongs. Our hosted karaoke keeps the energy high and the drinks flowing all night long.</p>
         <span class="event-tag pink">Monthly ✦ All Ages</span>
       </div>
-
       <div class="event-card mtg">
         <span class="event-icon">🃏</span>
         <h3>Magic: The Gathering</h3>
-        <p>Casual commander nights, draft events, and tournaments. We bring the cards, the judges, and the community straight to your venue.</p>
+        <p>Casual commander nights, drafts, and tournaments. We bring the cards, the judges, and a ready-made community to your bar.</p>
         <span class="event-tag purple">Monthly ✦ All Skill Levels</span>
       </div>
-
       <div class="event-card trivia">
         <span class="event-icon">🧠</span>
         <h3>Trivia Nights</h3>
-        <p>Custom trivia themes from pop culture to local history. Team-based, hosted live, with prizes that keep guests coming back every round.</p>
+        <p>Custom themes from pop culture to local history. Team-based, live-hosted, with prizes that keep guests coming back for the next round.</p>
         <span class="event-tag teal">Monthly ✦ Teams of 2–6</span>
       </div>
-
-      <div class="event-card djnight">
+      <div class="event-card dj">
         <span class="event-icon">🎶</span>
-        <h3>Live Music & DJ Nights</h3>
-        <p>Curated live sets and DJ experiences tailored to your venue's crowd. We handle sound, talent, and the full vibe — you just host.</p>
+        <h3>Live Music &amp; DJ Nights</h3>
+        <p>Curated live sets and DJ experiences tailored to your crowd. We handle the talent, the sound, and the vibe — you just host.</p>
         <span class="event-tag gold">Monthly ✦ Custom Themes</span>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ─── PACKAGES ─────────────────────────────────────── -->
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <span class="section-tag tag-purple">The Process</span>
+    <h2 class="section-title">From Inquiry to Packed House</h2>
+    <p class="section-desc">Here's exactly how a Bulla Boys partnership comes together — from your first message to a full monthly event calendar.</p>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-num pn1">1</div>
+        <div class="process-content">
+          <h3>Discovery &amp; Inquiry</h3>
+          <p>You fill out our inquiry form. We learn about your venue, your crowd, your goals. No commitment — just a conversation about what's possible.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num pn2">2</div>
+        <div class="process-content">
+          <h3>Custom Proposal</h3>
+          <p>We put together a tailored event plan and package recommendation for your venue. You'll see exactly what nights, what events, and what to expect — before you sign anything.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num pn3">3</div>
+        <div class="process-content">
+          <h3>Pre-Event Promotion</h3>
+          <p>We build buzz before the first night. Flyers, social posts, community outreach — we make sure people know something special is happening at your bar.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num pn4">4</div>
+        <div class="process-content">
+          <h3>We Run the Night</h3>
+          <p>Our team arrives early, sets up fully, and hosts from start to finish. You run the bar — we deliver an experience your guests won't stop talking about.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num pn5">5</div>
+        <div class="process-content">
+          <h3>Post-Event Debrief</h3>
+          <p>After every night we review performance, gather guest feedback, and log everything that worked and what to improve. Documentation is key.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num pn6">6</div>
+        <div class="process-content">
+          <h3>Repeat — Better Every Month</h3>
+          <p>We come back next month with a refined plan and a growing crowd. Every event builds on the last. Your venue becomes the spot people look forward to each week.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
 <section id="packages">
   <div class="section-inner">
     <span class="section-tag tag-yellow">Packages</span>
-    <h2 class="section-title" style="color: var(--text);">Find Your Perfect Package</h2>
-    <p class="section-desc">All packages include full event hosting, setup, and promotion support. Prices are monthly per event night.</p>
+    <h2 class="section-title">Find Your Package</h2>
+    <p class="section-desc">Start small and grow strategically, or go all-in from day one. Every package is fully hosted and promotion-included.</p>
     <div class="packages-grid">
-
-      <!-- Starter -->
       <div class="package-card pkg-starter">
         <span class="package-icon">🌟</span>
         <div class="package-name">Starter Pack</div>
-        <div class="package-price">
-          Contact Us <span>/ event</span>
-        </div>
-        <p class="package-tagline">Perfect for getting started</p>
+        <p class="package-tagline">One great night a month to start building your crowd</p>
         <ul class="package-features">
           <li>1 monthly event night</li>
           <li>Choose 1 event type</li>
-          <li>Professional host/emcee</li>
+          <li>Professional host / emcee</li>
           <li>Social media promotion post</li>
-          <li>Event setup &amp; breakdown</li>
+          <li>Full setup &amp; breakdown</li>
           <li>Up to 3 hours of entertainment</li>
+          <li>Post-event feedback report</li>
         </ul>
         <a href="#inquiry" class="btn-pkg btn-pkg-cyan">Inquire Now</a>
       </div>
-
-      <!-- Party (Featured) -->
       <div class="package-card pkg-party featured">
         <span class="package-badge">🔥 Most Popular</span>
         <span class="package-icon">🎊</span>
         <div class="package-name">Party Package</div>
-        <div class="package-price">
-          Contact Us <span>/ month</span>
-        </div>
-        <p class="package-tagline">Two events, double the fun</p>
+        <p class="package-tagline">Two events a month — double the regulars, double the buzz</p>
         <ul class="package-features">
           <li>2 monthly event nights</li>
           <li>Mix any 2 event types</li>
-          <li>Professional host/emcee</li>
+          <li>Professional host / emcee</li>
           <li>Custom event branding flyer</li>
           <li>Social media campaign (2 posts)</li>
-          <li>Event setup &amp; breakdown</li>
+          <li>Full setup &amp; breakdown</li>
           <li>Up to 4 hours per night</li>
-          <li>Basic prize coordination</li>
+          <li>Prize coordination included</li>
+          <li>Post-event debrief report</li>
         </ul>
         <a href="#inquiry" class="btn-pkg btn-pkg-pink">Book This Package</a>
       </div>
-
-      <!-- Ultimate -->
       <div class="package-card pkg-ultimate">
         <span class="package-icon">👑</span>
         <div class="package-name">Ultimate Experience</div>
-        <div class="package-price">
-          Contact Us <span>/ month</span>
-        </div>
-        <p class="package-tagline">Full monthly entertainment calendar</p>
+        <p class="package-tagline">A full monthly entertainment calendar — all four events</p>
         <ul class="package-features">
           <li>4 monthly event nights</li>
           <li>All 4 event types included</li>
@@ -678,139 +533,127 @@
           <li>Prize &amp; giveaway management</li>
           <li>Up to 5 hours per night</li>
           <li>Monthly performance report</li>
+          <li>Priority booking &amp; scheduling</li>
         </ul>
         <a href="#inquiry" class="btn-pkg btn-pkg-yellow">Get Ultimate</a>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ─── ABOUT ─────────────────────────────────────────── -->
-<section id="about">
+<!-- WHY PROFESSIONAL PLANNING MATTERS -->
+<section id="whypro">
   <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-text">
-        <span class="section-tag tag-cyan">Who We Are</span>
-        <h2 class="section-title" style="color: var(--text);">Central Florida's Event Crew</h2>
-        <p>Bulla Boys Entertainment was born out of a love for good times, great music, and community. We partner with cava bars and venues across Central Florida to create events that people actually look forward to every month.</p>
-        <p>We're not just event planners — we're your hype crew. We handle everything from planning and promotion to hosting and wrap-up, so you can focus on your business while we pack the house.</p>
-        <p>Whether it's a chill trivia Tuesday or an all-out karaoke Saturday, we bring the energy, the equipment, and the expertise to make every night legendary.</p>
-        <a href="#inquiry" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Work With Us</a>
+    <span class="section-tag tag-cyan">Why It Matters</span>
+    <h2 class="section-title">What Professional Event Planning Does for Your Venue</h2>
+    <p class="section-desc">There's a real difference between throwing an event and producing one. Here's exactly what a professional event partnership delivers.</p>
+    <div class="whypro-grid">
+      <div class="whypro-col">
+        <h3>🎯 For Your Event's Success</h3>
+        <ul class="whypro-list">
+          <li><strong>Professional expertise</strong> — your guests get a guided, polished experience every time, not a thrown-together night.</li>
+          <li><strong>Vendor access</strong> — our established relationships mean better options, better pricing, and reliable execution.</li>
+          <li><strong>Stress reduction</strong> — we handle the details so you and your staff can enjoy the night (and serve more drinks).</li>
+          <li><strong>Creative vision</strong> — fresh ideas and industry knowledge elevate every event above a basic bar night.</li>
+          <li><strong>Problem prevention</strong> — experience helps us anticipate and avoid issues before they ever reach your guests.</li>
+        </ul>
       </div>
-      <div class="about-stats">
-        <div class="stat-card">
-          <div class="stat-number">50+</div>
-          <div class="stat-label">Events Hosted</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">15+</div>
-          <div class="stat-label">Partner Venues</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">4</div>
-          <div class="stat-label">Event Types</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">100%</div>
-          <div class="stat-label">Good Vibes Only</div>
-        </div>
+      <div class="whypro-col">
+        <h3>📈 For Your Business Goals</h3>
+        <ul class="whypro-list b">
+          <li><strong>Recurring revenue</strong> — monthly events build a consistent revenue stream you can count on, not just random busy nights.</li>
+          <li><strong>Brand building</strong> — your venue becomes known as the place where something's always happening. That reputation compounds.</li>
+          <li><strong>Community loyalty</strong> — regular attendees become regulars at your bar. Events turn first-timers into lifelong customers.</li>
+          <li><strong>Word of mouth</strong> — a great event night is the best marketing money can't buy. People talk, they share, they bring friends.</li>
+          <li><strong>Scalable growth</strong> — start with one night, grow to a full calendar. We grow with you at whatever pace works for your venue.</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── INQUIRY ─────────────────────────────────────────── -->
+<!-- BEST PRACTICES -->
+<section id="bestpractices">
+  <div class="section-inner">
+    <span class="section-tag tag-pink">Our Standards</span>
+    <h2 class="section-title">How We Run Every Event</h2>
+    <p class="section-desc">These are the principles we hold ourselves to on every single night we run at your venue.</p>
+    <div class="bp-grid">
+      <div class="bp-card"><div class="bp-num c1">01</div><h4>Start Small, Grow Smart</h4><p>We build your event program at a pace that works for your venue — manageable, sustainable, and always improving month over month.</p></div>
+      <div class="bp-card"><div class="bp-num c2">02</div><h4>Document Everything</h4><p>Contracts, timelines, vendor contacts, runsheets — all organized and accessible. Every event is backed by solid paperwork.</p></div>
+      <div class="bp-card"><div class="bp-num c3">03</div><h4>Promote Before the Night</h4><p>We build buzz before we set foot in your venue. Marketing is baked into every package — not an afterthought.</p></div>
+      <div class="bp-card"><div class="bp-num c4">04</div><h4>Strong Vendor Network</h4><p>Our relationships with local talent, suppliers, and vendors mean better quality and pricing for every event we run.</p></div>
+      <div class="bp-card"><div class="bp-num c5">05</div><h4>Debrief Every Event</h4><p>We capture what worked, what didn't, and what to improve after every single night. Continuous improvement is non-negotiable.</p></div>
+      <div class="bp-card"><div class="bp-num c6">06</div><h4>Never Stop Improving</h4><p>The events industry evolves constantly. We stay current on trends, formats, and tools so your nights always feel fresh and relevant.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BACKUP / PLAN B -->
+<section id="backup">
+  <div class="section-inner">
+    <span class="section-tag tag-green">Our Promise</span>
+    <h2 class="section-title">We Come Prepared. Always.</h2>
+    <p class="section-desc">Life happens — we plan for it. Every event we run has backup plans built in so your guests always leave with a great memory, no matter what.</p>
+    <div class="backup-grid">
+      <div class="backup-card"><span class="backup-icon">🌧️</span><div><h4>Weather &amp; Venue Backup</h4><p>For any outdoor component, we have contingency plans ready. If it rains on the patio, the party moves inside — seamlessly.</p></div></div>
+      <div class="backup-card"><span class="backup-icon">⏱️</span><div><h4>Buffer Time Built In</h4><p>We always book more time than we need. That buffer keeps us calm and on schedule no matter what the night throws at us.</p></div></div>
+      <div class="backup-card"><span class="backup-icon">🚨</span><div><h4>Emergency Protocols</h4><p>Our team knows the venue layout, emergency exits, and safety procedures before every event. Fun and safe — always.</p></div></div>
+      <div class="backup-card"><span class="backup-icon">📋</span><div><h4>Everything Documented</h4><p>Contracts, permits, vendor contacts, and runsheets are all organized and accessible. If something goes sideways, we're ready.</p></div></div>
+      <div class="backup-card"><span class="backup-icon">💬</span><div><h4>Constant Communication</h4><p>We stay in touch with your venue team before and during every event. No surprises, no gaps, no missed details.</p></div></div>
+      <div class="backup-card"><span class="backup-icon">✨</span><div><h4>The Magic Is in the Recovery</h4><p>People remember how they felt when they left — not every detail. We stay calm, adapt fast, and always deliver the vibe.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INQUIRY -->
 <section id="inquiry">
   <div class="section-inner">
     <div class="inquiry-wrap">
       <div class="inquiry-info">
         <span class="section-tag tag-green">Book Now</span>
-        <h2 class="section-title" style="color: var(--text);">Let's Plan Your Next Event</h2>
-        <p>Fill out the form and we'll reach back out within 24 hours to discuss your venue, preferred event type, and available dates. Let's make something great together.</p>
+        <h2 class="section-title">Let's Get This Party Started</h2>
+        <p>Fill out the form and we'll be in touch within 24 hours to talk about your venue, your crowd, and the perfect event calendar for you. No commitment — just a great conversation.</p>
         <div class="contact-items">
-          <div class="contact-item">
-            <span class="contact-item-icon">📍</span>
-            <div class="contact-item-text">
-              <strong>Service Area</strong>
-              <span>Central Florida &amp; surrounding regions</span>
-            </div>
-          </div>
-          <div class="contact-item">
-            <span class="contact-item-icon">📧</span>
-            <div class="contact-item-text">
-              <strong>Email Us</strong>
-              <span>info@bullaboysentertainment.xyz</span>
-            </div>
-          </div>
-          <div class="contact-item">
-            <span class="contact-item-icon">📅</span>
-            <div class="contact-item-text">
-              <strong>Booking Lead Time</strong>
-              <span>2–3 weeks in advance recommended</span>
-            </div>
-          </div>
-          <div class="contact-item">
-            <span class="contact-item-icon">🕐</span>
-            <div class="contact-item-text">
-              <strong>Response Time</strong>
-              <span>Within 24 hours on business days</span>
-            </div>
-          </div>
+          <div class="contact-item"><span class="contact-item-icon">📍</span><div class="contact-item-text"><strong>Service Area</strong><span>Central Florida &amp; surrounding regions</span></div></div>
+          <div class="contact-item"><span class="contact-item-icon">📧</span><div class="contact-item-text"><strong>Email Us</strong><span>info@bullaboysentertainment.xyz</span></div></div>
+          <div class="contact-item"><span class="contact-item-icon">📅</span><div class="contact-item-text"><strong>Booking Lead Time</strong><span>2–3 weeks in advance recommended</span></div></div>
+          <div class="contact-item"><span class="contact-item-icon">🕐</span><div class="contact-item-text"><strong>Response Time</strong><span>Within 24 hours on business days</span></div></div>
         </div>
       </div>
-
       <div class="inquiry-form">
         <h3>Send an Inquiry</h3>
         <form id="inquiryForm" onsubmit="handleSubmit(event)">
           <div class="form-row">
-            <div class="form-group">
-              <label for="fname">First Name *</label>
-              <input type="text" id="fname" name="fname" placeholder="Jane" required/>
-            </div>
-            <div class="form-group">
-              <label for="lname">Last Name *</label>
-              <input type="text" id="lname" name="lname" placeholder="Doe" required/>
-            </div>
+            <div class="form-group"><label>First Name *</label><input type="text" placeholder="Jane" required/></div>
+            <div class="form-group"><label>Last Name *</label><input type="text" placeholder="Doe" required/></div>
           </div>
+          <div class="form-group"><label>Email Address *</label><input type="email" placeholder="jane@yourvenue.com" required/></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(407) 555-0123"/></div>
+          <div class="form-group"><label>Venue / Bar Name *</label><input type="text" placeholder="The Cava Lounge" required/></div>
           <div class="form-group">
-            <label for="email">Email Address *</label>
-            <input type="email" id="email" name="email" placeholder="jane@yourvenue.com" required/>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(407) 555-0123"/>
-          </div>
-          <div class="form-group">
-            <label for="venue">Venue / Bar Name *</label>
-            <input type="text" id="venue" name="venue" placeholder="The Cava Lounge" required/>
-          </div>
-          <div class="form-group">
-            <label for="eventType">Event Type *</label>
-            <select id="eventType" name="eventType" required>
+            <label>Event Type *</label>
+            <select required>
               <option value="" disabled selected>Select an event type…</option>
-              <option value="karaoke">Karaoke Night</option>
-              <option value="mtg">Magic: The Gathering</option>
-              <option value="trivia">Trivia Night</option>
-              <option value="djnight">Live Music / DJ Night</option>
-              <option value="multiple">Multiple Event Types</option>
-              <option value="other">Other / Not Sure Yet</option>
+              <option>Karaoke Night</option>
+              <option>Magic: The Gathering</option>
+              <option>Trivia Night</option>
+              <option>Live Music / DJ Night</option>
+              <option>Multiple Event Types</option>
+              <option>Not Sure Yet</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="package">Interested Package</label>
-            <select id="package" name="package">
+            <label>Interested Package</label>
+            <select>
               <option value="" disabled selected>Select a package…</option>
-              <option value="starter">Starter Pack</option>
-              <option value="party">Party Package</option>
-              <option value="ultimate">Ultimate Experience</option>
-              <option value="custom">Custom / Let's Talk</option>
+              <option>Starter Pack</option>
+              <option>Party Package</option>
+              <option>Ultimate Experience</option>
+              <option>Custom / Let's Talk</option>
             </select>
           </div>
-          <div class="form-group">
-            <label for="message">Tell Us More</label>
-            <textarea id="message" name="message" placeholder="Describe your venue, ideal event night, expected attendance, any other details…"></textarea>
-          </div>
+          <div class="form-group"><label>Tell Us About Your Venue</label><textarea placeholder="Describe your bar, your crowd, ideal event nights, expected attendance…"></textarea></div>
           <button type="submit" class="btn-submit">🎉 Send My Inquiry</button>
         </form>
         <div class="form-success" id="formSuccess">
@@ -823,49 +666,42 @@
   </div>
 </section>
 
-<!-- ─── FOOTER ─────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">Bulla Boys Entertainment</div>
   <p class="footer-tagline">Central Florida's Premier Event &amp; Entertainment Company</p>
   <div class="footer-links">
+    <a href="#why">Our Story</a>
     <a href="#events">Events</a>
     <a href="#packages">Packages</a>
-    <a href="#about">About</a>
+    <a href="#how">How It Works</a>
     <a href="#inquiry">Book Now</a>
     <a href="mailto:info@bullaboysentertainment.xyz">Contact</a>
   </div>
-  <p class="footer-copy">&copy; 2026 Bulla Boys Entertainment · bullaboysentertainment.xyz · Central Florida</p>
+  <p class="footer-copy">&copy; 2026 Bulla Boys Entertainment &middot; bullaboysentertainment.xyz &middot; Central Florida</p>
 </footer>
 
 <script>
-  // ── Hamburger nav
-  function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-
-  // ── Confetti generator
-  (function generateConfetti() {
-    const container = document.getElementById('confetti');
-    const colors = ['#FF3E9D','#7B2FFF','#FFD600','#00D4FF','#00E676','#FF6B6B','#fff'];
-    for (let i = 0; i < 55; i++) {
-      const el = document.createElement('span');
-      el.style.left       = Math.random() * 100 + '%';
-      el.style.top        = '-20px';
-      el.style.background = colors[Math.floor(Math.random() * colors.length)];
-      el.style.width      = (Math.random() * 8 + 5) + 'px';
-      el.style.height     = (Math.random() * 8 + 5) + 'px';
-      el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      el.style.animationDuration = (Math.random() * 8 + 5) + 's';
-      el.style.animationDelay    = (Math.random() * 10) + 's';
-      container.appendChild(el);
+  function toggleNav(){document.getElementById('navLinks').classList.toggle('open')}
+  (function(){
+    const c=document.getElementById('confetti');
+    const cols=['#FF3E9D','#7B2FFF','#FFD600','#00D4FF','#00E676','#FF6B6B','#fff'];
+    for(let i=0;i<55;i++){
+      const el=document.createElement('span');
+      el.style.left=Math.random()*100+'%';
+      el.style.background=cols[Math.floor(Math.random()*cols.length)];
+      el.style.width=(Math.random()*8+5)+'px';
+      el.style.height=(Math.random()*8+5)+'px';
+      el.style.borderRadius=Math.random()>.5?'50%':'2px';
+      el.style.animationDuration=(Math.random()*8+5)+'s';
+      el.style.animationDelay=(Math.random()*10)+'s';
+      c.appendChild(el);
     }
   })();
-
-  // ── Form submit
-  function handleSubmit(e) {
+  function handleSubmit(e){
     e.preventDefault();
-    document.getElementById('inquiryForm').style.display = 'none';
-    document.getElementById('formSuccess').style.display = 'block';
+    document.getElementById('inquiryForm').style.display='none';
+    document.getElementById('formSuccess').style.display='block';
   }
 </script>
 </body>
